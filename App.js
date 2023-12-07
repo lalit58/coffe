@@ -1,21 +1,24 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar, useColorScheme } from "react-native";
+import Navigation from "./src/navigation";
+
+import { useEffect } from "react";
+
+// registerRootComponent calls AppRegistry.registerComponent('main', () => App);
+// It also ensures that whether you load the app in Expo Go or in a native build,
+// the environment is set up appropriately
 
 export default function App() {
+  const theme = useColorScheme();
+  const getStatusBarStyle = () => {
+    if (theme === "light") {
+      return "dark-content"; // Set status bar text color to dark for light theme
+    }
+    return "light-content"; // Set status bar text color to light for dark theme
+  };
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <>
+      <StatusBar barStyle={getStatusBarStyle()} />
+      <Navigation />
+    </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
