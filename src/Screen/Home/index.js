@@ -10,6 +10,9 @@ const Home = (props) => {
         <TouchableOpacity onPress={() => props.navigation.navigate("details")}>
           <Text>Click</Text>
         </TouchableOpacity>
+        <TouchableOpacity onPress={() => props.navigation.navigate("webview")}>
+          <Text>WebView</Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );

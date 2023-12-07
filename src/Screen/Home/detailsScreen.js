@@ -92,17 +92,33 @@ const ScrollableScreen = React.forwardRef((props, ref) => {
       .catch((error) => console.log(error));
   };
 
+  const redirectToAppStore = (url) => {
+    if (Platform.OS === "ios") {
+      Linking.openURL("https://apps.apple.com/coffe"); // Replace with your App Store URL
+    } else if (Platform.OS === "android") {
+      Linking.openURL("market://details?id=coffe"); // Replace with your Play Store URL or package name
+    }
+  };
+
   Linking.addEventListener("url", ({ url }) => {
-    // Handle the incoming URL here
     console.log("Incoming deep link:", url);
-    // Navigate to the appropriate screen based on the deep link URL
+    if (url) {
+      redirectToAppStore(url); // Redirect to the App Store or Play Store
+    } else {
+      // Navigate to the appropriate screen based on the deep link URL
+    }
   });
 
   // Check for initial deep link
   Linking.getInitialURL().then((url) => {
     if (url) {
       console.log("Initial deep link:", url);
-      // Navigate to the appropriate screen based on the initial deep link URL
+      // Check if the app should redirect to the store based on the initial URL
+      if (url) {
+        redirectToAppStore(url); // Redirect to the App Store or Play Store
+      } else {
+        // Navigate to the appropriate screen based on the initial deep link URL
+      }
     }
   });
 
